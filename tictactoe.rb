@@ -16,12 +16,14 @@ def initialize_board
 end
 
 def draw_board(board)
-  system 'clear'
+  system 'cls'
+  puts ""
   puts " #{board[1]}  | #{board[2]}  | #{board[3]}  "
   puts "______________"
   puts " #{board[4]}  | #{board[5]}  | #{board[6]}  "
   puts "______________"
   puts " #{board[7]}  | #{board[8]}  | #{board[9]}  "
+  puts ""
 end
 
 def empty_postion(board)
@@ -48,7 +50,7 @@ end
 def check_for_winner(board)
   # winning_options = Array of win conditions
   winning_options = [[1,2,3], [4,5,6], [7,8,9], [1,5,9], [3,5,7], [1,4,7], [2,5,8], [3,6,9]]
-  # winning_options.each do |position|
+  # winning_options.each do 
   winning_options.each do |line|
     return "Player" if board.values_at(*line).count('X') == 3
     return "Computer" if board.values_at(*line).count('O') == 3
@@ -70,7 +72,13 @@ loop do
     draw_board(board)
     winner = check_for_winner(board)
   end until winner || full_board?(board)
-    winner_prompt
+  if winner
+    winner_prompt(winner)
+  else
+    puts "It's a tie."
+  end
+  
   puts "Play again? (Y/N)"
   break if gets.chomp.upcase != 'Y'
 end
+
